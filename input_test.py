@@ -1,12 +1,18 @@
 from flask import Flask, render_template, redirect, request, url_for
 app = Flask(__name__)
 
-@app.route('/')
+
 @app.route('/<int:num>')
-def inqutTest(num=None):
+def inputTest(num=None):
     return render_template('main.html', num=num)
 
-@app.route('/calculate',methods=['POST'])
+
+@app.route('/')
+def redirect_input():
+    return redirect('/2')
+
+
+@app.route('/calculate', methods=['POST'])
 def calculate(num=None):
     if request.method == 'POST':
         temp = request.form['num']
@@ -14,5 +20,6 @@ def calculate(num=None):
         temp = None
     return redirect(url_for('inputTest', num=temp))
 
+
 if __name__ == '__main__':
-    app.run
+    app.run()
